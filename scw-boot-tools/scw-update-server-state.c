@@ -1,3 +1,7 @@
+#if defined(__FreeBSD__)
+#include <sys/socket.h>
+#define _WITH_DPRINTF
+#endif
 #include <string.h>
 #include <unistd.h>
 #include <stdbool.h>
