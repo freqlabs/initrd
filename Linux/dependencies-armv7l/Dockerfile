@@ -1,4 +1,4 @@
-FROM scaleway/ubuntu:armhf-wily
+FROM scaleway/ubuntu:armhf-xenial
 
 RUN /usr/local/sbin/scw-builder-enter
 
@@ -8,11 +8,11 @@ RUN apt-get update          \
  && apt-get install -y      \
    curl                     \
    dropbear                 \
+   kexec-tools              \
    nfs-common               \
    ntpdate                  \
    parted                   \
    btrfs-tools              \
-   udhcpc                   \
    wget                     \
  && apt-get clean
 
@@ -22,12 +22,6 @@ RUN wget -O /tmp/busybox.deb                                                    
       http://ftp.fr.debian.org/debian/pool/main/b/busybox/busybox-static_1.22.0-9+deb8u1_armhf.deb  \
  && dpkg -i /tmp/busybox.deb                                                                        \
  && rm -f /tmp/busybox.deb
-
-
-# Fetch ldd-rec.pl
-RUN wget https://raw.githubusercontent.com/moul/mbin/master/ldd-rec.pl  \
-      -O /usr/local/bin/ldd-rec.pl                                      \
- && chmod +x /usr/local/bin/ldd-rec.pl
 
 
 # Fetch scw-metadata
@@ -51,7 +45,8 @@ CMD ["cat", "/dependencies.tar"]
 
 # Copy local assets
 COPY ./tmp/scw-update-server-state /usr/bin/scw-update-server-state
-COPY ./export-assets /usr/local/bin/
+COPY ./tmp/ldd-rec.pl /usr/local/bin/
+COPY ./tmp/export-assets /usr/local/bin/
 
 
 # Generate tarball
@@ -65,6 +60,7 @@ RUN export-assets \
       /lib/x86_64-linux-gnu/libnss_dns.so.2 \
       /lib/x86_64-linux-gnu/libnss_files.so.2 \
       /lib/x86_64-linux-gnu/libresolv.so.2 \
+      /sbin/kexec \
       /sbin/mkfs.btrfs \
       /sbin/mkfs.ext4 \
       /sbin/parted \

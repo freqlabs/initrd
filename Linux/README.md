@@ -251,11 +251,42 @@ Here are the availble *initrd variables*:
 
 ## Changelog
 
-### master (unreleased)
+### 3.12.6 (2017-06-15)
 
-* No entry
+* Add file `/var/run/scaleway` for compatibility with *cloud-init*
 
-[full commits list](https://github.com/scaleway/initrd/compare/v3.11.1...master)
+
+### 3.12.5 (2017-06-09)
+
+* Use ipconfig instead of udhcpc for network interfaces configuration
+* Bug fixes
+
+### 3.12.4 (2017-04-18)
+
+* Update build system to Xenial thanks to @meyskens
+* Bug fixes
+
+### 3.12.3 (2016-12-07)
+
+* armv7 add kexec support thanks @Firefishy
+
+### 3.12.2 (unreleased)
+
+* init: mount fix sysfs/proc options ([#171](https://github.com/scaleway/initrd/issues/171))
+
+### 3.12.1 (2016-10-24)
+
+* Add custom parameters to the cmdline when KEXECing with `KEXEC_APPEND=xxx` ([#168](https://github.com/scaleway/initrd/issues/168))
+
+[full commits list](https://github.com/scaleway/initrd/compare/v3.12...v3.12.1)
+
+### 3.12 (2016-10-19)
+
+* kexec improvements
+* Generate machine id
+* Fetch kernel modules
+
+[full commits list](https://github.com/scaleway/initrd/compare/v3.11.1...3.12)
 
 ### 3.11.1 (2016-06-13)
 
